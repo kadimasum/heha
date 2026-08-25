@@ -14,14 +14,22 @@ pipeline {
             }
         }
 
-        stage('Install & Build') {
+        stage('Install Dependencies') {
+            tools {
+                nodejs 'node'
+            }
             steps {
-                sh 'npm install'
+                sh 'ldconfig -p | grep -q "libatomic.so.1" || { echo "Missing libatomic.so.1; install the libatomic1 package on the Jenkins agent" >&2; exit 1; }'
+                sh 'npm ci'
             }
         }
 
         stage('Test') {
+            tools {
+                nodejs 'node'
+            }
             steps {
+                sh 'npm ci'
                 sh 'npm test'
             }
         }
@@ -41,9 +49,4 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            sh 'docker logout || true'
-        }
-    }
 }
