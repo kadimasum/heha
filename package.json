@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/server.js",
     "test": "jest --coverage",
-    "lint": "echo \"(add a linter here if desired)\" && exit 0"
+    "lint": "echo \"(add a linter here if desired)\" && exit 0",
+    "build": "node --check src/app.js && node --check src/server.js"
   },
   "dependencies": {
     "express": "^4.19.2"
