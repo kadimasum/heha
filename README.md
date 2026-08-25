@@ -5,8 +5,8 @@ tests → Docker image build → Kubernetes deployment.
 
 ## Features
 
-- `GET /` – simple static web page showing app info
-- `GET /api/info` – JSON with app name/version/build id/hostname
+- `GET /` – web page explaining CI/CD concepts and this app's pipeline
+- `GET /api/info` – JSON with app name/version/build id/timestamp
 - `GET /healthz` – liveness probe endpoint
 - `GET /readyz` – readiness probe endpoint
 
@@ -38,21 +38,20 @@ docker run --rm -p 3000:3000 cicd-demo-app:latest
 
 ## Kubernetes
 
-Manifests live under [k8s/](k8s) and are managed with Kustomize:
+Manifests live under [k8s/](k8s):
 
 ```bash
-kubectl apply -k k8s/
+kubectl apply -f k8s/
 ```
 
 This creates the `cicd-demo` namespace, a `Deployment` (2 replicas, rolling
 updates, liveness/readiness probes, non-root/read-only-fs security context),
-a `Service`, and an `Ingress`.
+and a `Service`.
 
-To point the deployment at an image you built/pushed:
+To point the deployment at an image you built/pushed, update the `image:`
+field in [k8s/deployment.yaml](k8s/deployment.yaml) and re-apply:
 
 ```bash
-cd k8s
-kustomize edit set image cicd-demo-app=<registry>/<image>:<tag>
-kubectl apply -k .
+kubectl apply -f k8s/
 ```
 
