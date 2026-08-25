@@ -27,6 +27,24 @@ npm test
 
 Tests use Jest + Supertest and live in [test/app.test.js](test/app.test.js).
 
+## Building
+
+This app does not require a JavaScript compilation or bundling step. The build
+command validates the application's JavaScript syntax without requiring Docker:
+
+```bash
+npm run build
+```
+
+Docker image creation is handled separately by the CI/CD pipeline.
+
+## CI/CD pipeline
+
+[Jenkinsfile](Jenkinsfile) defines a declarative pipeline that clones the
+repo, installs dependencies, runs the test suite, then builds and pushes a
+Docker image to Docker Hub. It expects a Jenkins credential named
+`dockerhub-credentials` (username/password) for authenticating with Docker Hub.
+
 ## Docker
 
 Build and run the container locally:
