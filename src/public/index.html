@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Continuous Integration &amp; Continuous Delivery</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #111827;
+      --surface-alt: #1e293b;
+      --border: #263348;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, "Segoe UI", Roboto, system-ui, sans-serif;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, #0f1a30, var(--bg));
+    }
+    header h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      letter-spacing: -0.02em;
+    }
+    header p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 42rem;
+      margin-inline: auto;
+    }
+    main {
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    section { margin-bottom: 2.5rem; }
+    h2 {
+      font-size: 1.25rem;
+      color: var(--accent);
+      border-left: 3px solid var(--accent);
+      padding-left: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.4rem;
+    }
+    .card h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .pipeline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .pipeline .step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .pipeline .arrow {
+      color: var(--muted);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+    th {
+      color: var(--muted);
+      font-weight: 600;
+      background: var(--surface-alt);
+    }
+    tr:last-child td { border-bottom: none; }
+    .status {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--accent-2);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .badge::before {
+      content: "";
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: var(--accent-2);
+    }
+    dl {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 0.35rem 1rem;
+      margin: 0.5rem 0 0;
+      font-size: 0.88rem;
+    }
+    dt { color: var(--muted); }
+    dd { margin: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Continuous Integration &amp; Continuous Delivery</h1>
+    <p>
+      This application is a working example used to demonstrate how code moves
+      from a developer's commit to a running service in production &mdash;
+      automatically, safely, and repeatably.
+    </p>
+  </header>
+
+  <main>
+    <section>
+      <h2>What is CI/CD?</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Continuous Integration</h3>
+          <p>
+            Every code change is automatically built and tested as soon as it
+            is pushed, catching issues early and keeping the main branch
+            always in a releasable state.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Continuous Delivery</h3>
+          <p>
+            Validated builds are automatically packaged into deployable
+            artifacts &mdash; such as container images &mdash; ready to be
+            released at any time.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Continuous Deployment</h3>
+          <p>
+            Approved artifacts are automatically rolled out to the target
+            environment (e.g. Kubernetes) with zero manual steps and no
+            downtime.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>This app's pipeline</h2>
+      <div class="pipeline">
+        <div class="step">Commit</div>
+        <span class="arrow">&rarr;</span>
+        <div class="step">Run tests</div>
+        <span class="arrow">&rarr;</span>
+        <div class="step">Build image</div>
+        <span class="arrow">&rarr;</span>
+        <div class="step">Push to registry</div>
+        <span class="arrow">&rarr;</span>
+        <div class="step">Deploy to Kubernetes</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Why it matters</h2>
+      <table>
+        <thead>
+          <tr><th>Benefit</th><th>Impact</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Faster feedback</td><td>Bugs are caught in minutes, not weeks</td></tr>
+          <tr><td>Consistent releases</td><td>Every deploy follows the same automated, auditable process</td></tr>
+          <tr><td>Lower risk</td><td>Small, frequent changes are easier to reason about and roll back</td></tr>
+          <tr><td>Faster time to value</td><td>Features reach users as soon as they are ready</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Live deployment status</h2>
+      <div class="status">
+        <span class="badge">healthy</span>
+        <span id="fetch-error" style="color:#f87171; display:none;">
+          Unable to reach /api/info
+        </span>
+        <dl id="info"></dl>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Deployed via an automated CI/CD pipeline &middot; built to illustrate the process, not just describe it.
+  </footer>
+
+  <script>
+    fetch('/api/info')
+      .then((r) => r.json())
+      .then((data) => {
+        const dl = document.getElementById('info');
+        // hostname is excluded from display to avoid leaking host details
+        Object.entries(data)
+          .filter(([key]) => key !== 'hostname')
+          .forEach(([key, value]) => {
+            const dt = document.createElement('dt');
+            dt.textContent = key;
+            const dd = document.createElement('dd');
+            dd.textContent = value;
+            dl.appendChild(dt);
+            dl.appendChild(dd);
+          });
+      })
+      .catch(() => {
+        document.getElementById('fetch-error').style.display = 'inline';
+      });
+  </script>
+</body>
+</html>
+
