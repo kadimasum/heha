@@ -56,12 +56,3 @@ kustomize edit set image cicd-demo-app=<registry>/<image>:<tag>
 kubectl apply -k .
 ```
 
-## CI/CD pipeline
-
-[.github/workflows/ci-cd.yaml](.github/workflows/ci-cd.yaml) defines a GitHub
-Actions pipeline that:
-
-1. Installs dependencies and runs the test suite.
-2. Builds and pushes a Docker image to GHCR (on pushes to `main`).
-3. Deploys the new image to Kubernetes via Kustomize + `kubectl apply` (on
-   pushes to `main`, requires a configured kubeconfig/runner).
