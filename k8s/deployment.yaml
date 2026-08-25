@@ -54,9 +54,9 @@ spec:
               port: http
             initialDelaySeconds: 5
             periodSeconds: 10
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            runAsNonRoot: true
-            capabilities:
-              drop: ["ALL"]
+          # securityContext:
+          #   allowPrivilegeEscalation: false
+          #   readOnlyRootFilesystem: true
+          #   runAsNonRoot: true
+          #   capabilities:
+          #     drop: ["ALL"]
