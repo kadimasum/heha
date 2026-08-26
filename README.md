@@ -155,7 +155,7 @@ The manifests in [k8s/](k8s) define:
 - [service.yaml](k8s/service.yaml): an internal `ClusterIP` service on port 80
 	forwarding to container port 3000
 
-Apply them directly:
+Apply them directly:.
 
 ```bash
 kubectl apply -f k8s/
